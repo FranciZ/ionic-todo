@@ -8,6 +8,7 @@ angular.module('starter').controller('MainCtrl', function(
   $scope.todoModel = {};
   $scope.todos = todoService.model.list;
 
+
   function init(){
 
     todoService.getTodos();
@@ -36,6 +37,10 @@ angular.module('starter').controller('MainCtrl', function(
 
   };
 
+  $scope.locales = {
+    ui : $scope.languages.Slovenski
+  };
+
   $scope.addTodoClick = function(){
 
     // { title:'My to do'}
@@ -56,8 +61,23 @@ angular.module('starter').controller('MainCtrl', function(
 
   };
 
-  $scope.locales = {
-    ui : $scope.languages.Slovenski
+  $scope.addPersonClick = function(){
+
+    navigator.contacts.pickContact(function(contact){
+
+      $scope.todoModel.contact = {
+        displayName : contact.displayName,
+        id          : contact.id
+      };
+
+      $scope.$apply();
+
+    },function(err){
+
+
+
+    });
+
   };
 
   $scope.onLanguageClick = function(){

@@ -44,6 +44,14 @@
         </label>
 
         <div class="padding">
+
+          <div class="item">
+            {{todoModel.contact.displayName}}
+            <button class="button button-positive button-outline" ng-click="addPersonClick()">
+              <i class="icon ion-person-add"></i>
+            </button>
+          </div>
+
           <button
             ng-click="addTodoClick()"
             class="button button-block button-outline button-positive">
@@ -52,8 +60,9 @@
         </div>
 
         <ul class="list">
+
           <div class="item item-button-right" ng-repeat="todo in todos">
-            {{todo.title}}
+            {{todo.title}} / {{todo.contact.displayName}}
             <button class="button button-outline button-positive" ng-click="removeTodoClick(todo.id)">
               <i class="icon ion-android-remove-circle"></i>
             </button>
