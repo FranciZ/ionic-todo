@@ -26,6 +26,7 @@
     <script src="js/todo-service.js"></script>
     <script src="js/main-ctrl.js"></script>
   </head>
+
   <body ng-app="starter" ng-cloak>
 
     <ion-pane ng-controller="MainCtrl">
@@ -43,14 +44,26 @@
           <input ng-model="todoModel.title" type="text" placeholder="Task name">
         </label>
 
+        <ion-checkbox ng-model="todoModel.dueDateToggle">Add due date</ion-checkbox>
+
+        <label class="item item-input item-floating-label" ng-if="todoModel.dueDateToggle">
+          <label>Choose date</label>
+          <input ng-model="todoModel.dueDate" type="date" placeholder="Due date">
+        </label>
+
+        <label class="item item-input item-floating-label" ng-if="todoModel.dueDateToggle">
+          <label>Choose time</label>
+          <input ng-model="todoModel.dueDate" type="time" placeholder="Due time">
+        </label>
+
         <div class="padding">
 
-          <div class="item">
-            {{todoModel.contact.displayName}}
-            <button class="button button-positive button-outline" ng-click="addPersonClick()">
-              <i class="icon ion-person-add"></i>
-            </button>
-          </div>
+          <button class="button button-positive button-outline" ng-click="addPersonClick()">
+            <i class="icon ion-person-add"></i>
+          </button>
+          <h6 ng-if="todoModel.contact">
+            Attached to: {{todoModel.contact.displayName}}
+          </h6>
 
           <button
             ng-click="addTodoClick()"
@@ -62,7 +75,9 @@
         <ul class="list">
 
           <div class="item item-button-right" ng-repeat="todo in todos">
-            {{todo.title}} / {{todo.contact.displayName}}
+            <p><b>{{todo.title}}</b></p>
+            <p ng-if="todo.contact">Assigned to: {{todo.contact.displayName}}</p>
+            <p ng-if="todo.dueDate">Due date: {{todo.dueDate}}</p>
             <button class="button button-outline button-positive" ng-click="removeTodoClick(todo.id)">
               <i class="icon ion-android-remove-circle"></i>
             </button>

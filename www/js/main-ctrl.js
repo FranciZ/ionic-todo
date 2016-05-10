@@ -5,9 +5,11 @@ angular.module('starter').controller('MainCtrl', function(
   todoService
 ){
 
-  $scope.todoModel = {};
-  $scope.todos = todoService.model.list;
+  $scope.todoModel = {
+    dueDate : new Date(Date.now()+1000*60*60*24),
+  };
 
+  $scope.todos = todoService.model.list;
 
   function init(){
 
@@ -43,8 +45,29 @@ angular.module('starter').controller('MainCtrl', function(
 
   $scope.addTodoClick = function(){
 
+    /*
+
+    console.log($scope.todoModel);
+
+    if(!$scope.todoModel.dueDateToggle){
+      delete $scope.todoModel.dueDate;
+    }
+
     // { title:'My to do'}
     todoService.addTodo($scope.todoModel);
+
+    $scope.todoModel = {
+      dueDate : new Date(Date.now()+1000*60*60*24),
+    };
+    */
+
+    var options = { method:"feed" };
+    facebookConnectPlugin.showDialog(options,
+      function (result) {
+        alert("Posted. " + JSON.stringify(result));             },
+      function (e) {
+        alert("Failed: " + e);
+      });
 
   };
 

@@ -9,7 +9,17 @@ angular.module('starter').factory('todoService', function($localForage){
 
       todo.id = guid();
 
-      // { title:'moj title', id:'as0102idhad8912'}
+      if(todo.dueDate){
+
+        cordova.plugins.notification.local.schedule({
+          id: 10,
+          title: todo.title,
+          text: todo.dueDate,
+          at: todo.dueDate,
+          data: { todoId:todo.id }
+        });
+
+      }
 
       $localForage.getItem('todos')
         .then(function(todos){
